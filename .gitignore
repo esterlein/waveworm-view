@@ -1,0 +1,16 @@
+build
+project/.godot/
+project/.mono/
+
+project/data_*/
+project/mono_crash.*.json
+
+project/export.cfg
+project/export_presets.cfg
+
+*.import
+*.translation
+
+*.blend1
+*.thumb
+*.ptex.mmcr
