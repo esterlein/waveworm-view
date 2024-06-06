@@ -7,7 +7,7 @@ extends Node3D
 
 @export var max_zoom_in: float = 3.0
 @export var max_zoom_out: float = 100
-@export var zoom_speed: float = 1
+@export var zoom_speed: float = 1.0
 
 var zoom: float = 1.5
 
@@ -62,6 +62,6 @@ func move_cam(delta):
 		self.move.x = lerp(self.move.x, 0.0, self.acceleration)
 	
 	self.position += self.move.rotated(Vector3.UP, self.rotation.y) * self.zoom
-	self.position.x = clamp(self.position.x,-20,20)
-	self.position.z = clamp(self.position.z,-20,20)
+	self.position.x = clamp(self.position.x, -20, 20)
+	self.position.z = clamp(self.position.z, -20, 20)
 	
