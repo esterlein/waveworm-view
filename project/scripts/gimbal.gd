@@ -19,9 +19,7 @@ var zoom: float = 1.5
 var move = Vector3()
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	#OS.window_fullscreen = true
 	pass
 
 func _input(event):
@@ -44,17 +42,12 @@ func _input(event):
 	zoom = clamp(zoom, self.max_zoom_in, self.max_zoom_out)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	#zoom camera
 	scale = lerp(scale, Vector3.ONE * self.zoom, self.zoom_speed)
-	#clamp rotation
 	self.innergimbal.rotation.x = clamp(self.innergimbal.rotation.x, -1.1, 0.3)
-	#move camera
 	move_cam(delta)
 
 func move_cam(delta):
-	#get inputs
 	if Input.is_action_pressed("cam_forward"):
 		self.move.z = lerp(self.move.z, -self.speed, self.acceleration)
 	elif Input.is_action_pressed("cam_backward"):
@@ -68,10 +61,7 @@ func move_cam(delta):
 	else:
 		self.move.x = lerp(self.move.x, 0.0, self.acceleration)
 	
-	#move camera
 	self.position += self.move.rotated(Vector3.UP, self.rotation.y) * self.zoom
 	self.position.x = clamp(self.position.x,-20,20)
 	self.position.z = clamp(self.position.z,-20,20)
-
-
-
+	
