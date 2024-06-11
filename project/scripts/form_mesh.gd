@@ -8,11 +8,11 @@ var streams := MeshAttributes.new()
 
 
 func add_layer(attrs: MeshAttributes) -> void:
-	self.branches.append_mesh_attributes(attrs)
+	self.layers.append_mesh_attributes(attrs)
 	
 
 func add_stream(attrs: MeshAttributes) -> void:
-	self.leaves.append_mesh_attributes(attrs)
+	self.streams.append_mesh_attributes(attrs)
 
 
 func commit_mesh() -> void:
