@@ -8,6 +8,12 @@ var noise: int = 2
 var density: int = 10
 var sparsity: int = 1
 
-func get_planes() -> Array:
+func get_radial_gradient() -> Array:
 	pass
 	
+func backtrack():
+	pass
+
+func get_planes() -> Array:
+	pass
+
