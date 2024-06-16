@@ -14,8 +14,12 @@ var mtx_probe: Array[float]
 
 
 func _init():
-	mtx_field.resize(_size ** 3)
-	mtx_probe.resize(_size ** 3)
+	var size: int = _size ** 3
+	mtx_field.resize(size)
+	mtx_probe.resize(size)
+	mtx_field.fill(0)
+	mtx_probe.fill(0)
+	
 
 func set_gradient_sphere() -> void:
 	pass
