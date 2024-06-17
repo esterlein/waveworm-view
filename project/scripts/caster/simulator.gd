@@ -19,7 +19,9 @@ func _init():
 	mtx_probe.resize(size)
 	mtx_field.fill(0)
 	mtx_probe.fill(0)
-	
+
 
 func set_gradient_sphere() -> void:
-	pass
+	var center_x = _size / 2
+	var center_y = center_x
+	var center_z = center_x
