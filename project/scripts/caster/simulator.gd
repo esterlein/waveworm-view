@@ -25,3 +25,9 @@ func set_gradient_sphere() -> void:
 	var center_x = _size / 2
 	var center_y = center_x
 	var center_z = center_x
+	
+	for x in range(_size):
+		for y in range(_size):
+			for z in range(_size):
+				mtx_field[x + y * 10 + z * 100] = float(_strength - sqrt(abs(center_x - x) ** 2 +
+				abs(center_y - y) ** 2 + abs(center_z - z) ** 2))
