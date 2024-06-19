@@ -5,7 +5,7 @@ const form_scene: PackedScene = preload("res://scenes/form.tscn")
 
 
 func _ready():
-	pass
+	randomize()
 
 
 func _process(delta):

@@ -30,4 +30,4 @@ func set_gradient_sphere() -> void:
 		for y in range(_size):
 			for z in range(_size):
 				mtx_field[x + y * 10 + z * 100] = float(_strength - sqrt(abs(center_x - x) ** 2 +
-				abs(center_y - y) ** 2 + abs(center_z - z) ** 2))
+				abs(center_y - y) ** 2 + abs(center_z - z) ** 2)) + randfn(.0, 1.)
