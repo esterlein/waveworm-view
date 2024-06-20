@@ -56,4 +56,12 @@ func get_probe(mtx_field: Array[float], perc: int = _probe_density_perc) -> Arra
 	
 	var num_probes := int(size * perc / 100)
 	
+	var num_p: int = 0
+	while num_p < num_probes:
+		var index: int = randi_range(0, size)
+		
+		var x := int(index / size ** 2)
+		var y := int(index / x)
+		var z := int(index % x)
+	
 	return mtx_probe
