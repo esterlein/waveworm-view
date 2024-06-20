@@ -34,15 +34,17 @@ func get_gradient_sphere() -> Array[float]:
 	return mtx_field
 
 
-func scalar_offset_normalize():
+func scalar_offset_normalize(mtx: Array[float], size: int = _size) -> Array[float]:
 	var min_val: float = 0
 	
-	for x in range(_size):
-		for y in range(_size):
-			for z in range(_size):
-				min_val = min(min_val, mtx_field[x + y * 10 + z * 100])
+	for x in range(size):
+		for y in range(size):
+			for z in range(size):
+				min_val = min(min_val, mtx[x + y * 10 + z * 100])
 	
-	for x in range(_size):
-		for y in range(_size):
-			for z in range(_size):
-				mtx_field[x + y * 10 + z * 100] += -min_val
+	for x in range(size):
+		for y in range(size):
+			for z in range(size):
+				mtx[x + y * 10 + z * 100] += -min_val
+				
+	return mtx
