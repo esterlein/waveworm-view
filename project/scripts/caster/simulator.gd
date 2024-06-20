@@ -6,10 +6,8 @@ var _size: int = 10
 var _noise: int = 2
 var _strength: int = 10
 
-var _probe_density: int = 10
-var _probe_sparsity: int = 1
-
-var mtx_probe: Array[float]
+var _probe_density_perc: int = 10
+var _probe_sparsity_elem: int = 1
 
 
 func _init():
@@ -48,3 +46,14 @@ func scalar_offset_normalize(mtx: Array[float], size: int = _size) -> Array[floa
 				mtx[x + y * 10 + z * 100] += -min_val
 				
 	return mtx
+
+
+func get_probe(mtx_field: Array[float], perc: int = _probe_density_perc) -> Array[float]:
+	var size: int = mtx_field.size()
+	var mtx_probe: Array[float]
+	mtx_probe.resize(size)
+	mtx_probe.fill(NAN)
+	
+	var num_probes := int(size * perc / 100)
+	
+	return mtx_probe
