@@ -63,5 +63,11 @@ func get_probe(mtx_field: Array[float], perc: int = _probe_density_perc) -> Arra
 		var x := int(index / size ** 2)
 		var y := int(index / x)
 		var z := int(index % x)
+		
+		if backtrack
 	
 	return mtx_probe
+
+
+func backtrack(x: int, y: int, z: int, depth: int, memo: Dictionary = {}) -> bool:
+	return false
