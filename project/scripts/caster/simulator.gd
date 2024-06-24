@@ -66,6 +66,9 @@ func get_probe(mtx_field: Array[float], perc: int = _probe_density_perc) -> Arra
 		
 		if _backtrack(x, y, z, _probe_sparsity_elem) == false:
 			continue
+			
+		mtx_probe[index] = mtx_field[index]
+		num_p += 1
 	
 	return mtx_probe
 
