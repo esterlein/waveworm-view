@@ -64,14 +64,17 @@ func get_probe(mtx_field: Array[float], perc: int = _probe_density_perc) -> Arra
 		var y := int(index / x)
 		var z := int(index % x)
 		
-		if _backtrack(x, y, z, _probe_sparsity_elem) == false:
+		if _backtrack(Vector3i(x, y, z), _probe_sparsity_elem) == false:
 			continue
-			
+		
 		mtx_probe[index] = mtx_field[index]
 		num_p += 1
 	
 	return mtx_probe
 
 
-func _backtrack(x: int, y: int, z: int, depth: int, memo: Dictionary = {}) -> bool:
+func _backtrack(coords: Vector3i, depth: int, memo: Dictionary = {}) -> bool:
+	if coords in memo:
+		return false
+	
 	return false
