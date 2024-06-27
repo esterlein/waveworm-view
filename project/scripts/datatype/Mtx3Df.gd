@@ -3,16 +3,22 @@ extends Object
 
 
 var _size: int = 0
+var _dims: Vector3i
 var _storage: Array[float]
 
 
-func _init(size: int, value: float = 0):
-	self._size = size
-	self._storage.resize(size ** 3)
+func _init(dims: Vector3i, value: float = .0):
+	self._dims = dims
+	self._size = dims.x * dims.y * dims.z
+	self._storage.resize(self._size)
 	self._storage.fill(value)
 
 func coords(index: int) -> Vector3i:
-	pass
+	return Vector3i(index / _size ** 2, \
+					index / _size ** 2, \
+					index / _size ** 2)
 
 func index(x: int, y: int, z: int) -> int:
 	pass
+
+
