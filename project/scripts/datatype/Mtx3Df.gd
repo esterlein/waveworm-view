@@ -14,7 +14,10 @@ func _init(dim: Vector3i, value: float = .0):
 	self._storage.fill(value)
 
 func coords(index: int) -> Vector3i:
-	return Vector3i()
+	var x: int = index % self._dim.x
+	var y: int = ((index - x) / self._dim.x) % self._dim.y
+	var z: int = (index - x - self._dim.x * y)/(self._dim.x * self._dim.y)
+	return Vector3i(x, y, z)
 
 func index(x: int, y: int, z: int) -> int:
 	return x + self._dim.x * (y + self._dim.y * z)
