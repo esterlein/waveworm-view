@@ -14,6 +14,9 @@ func _init(dim: Vector3i, value: float = .0):
 	self._storage.fill(value)
 
 func coords(index: int) -> Vector3i:
+	if index >= self._size || index < 0:
+		printerr("mtx3df index {index} out of bounds".format("index": index))
+		return Vector3i()
 	var x: int = index % self._dim.x
 	var y: int = ((index - x) / self._dim.x) % self._dim.y
 	var z: int = (index - x - self._dim.x * y)/(self._dim.x * self._dim.y)
