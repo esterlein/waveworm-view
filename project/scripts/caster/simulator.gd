@@ -14,10 +14,8 @@ func _init():
 	pass
 
 
-func get_gradient_sphere() -> Array[float]:
-	var mtx_field: Array[float]
-	mtx_field.resize(_size ** 3)
-	mtx_field.fill(0)
+func get_gradient_sphere(dim: Vector3i) -> Mtx3Df:
+	var mtx_field := Mtx3Df.new(dim)
 	
 	var center_x: float = _size / 2.
 	var center_y: float = center_x
