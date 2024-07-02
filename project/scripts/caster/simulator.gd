@@ -17,14 +17,14 @@ func _init():
 func get_gradient_sphere(dim: Vector3i) -> Mtx3Df:
 	var mtx_field := Mtx3Df.new(dim)
 	
-	var center_x: float = _size / 2.
-	var center_y: float = center_x
-	var center_z: float = center_x
+	var center_x: float = dim.x / 2.0
+	var center_y: float = dim.y / 2.0
+	var center_z: float = dim.z / 2.0
 	
-	for x in range(_size):
-		for y in range(_size):
-			for z in range(_size):
-				mtx_field[x + y * 10 + z * 100] = float(_strength - sqrt(abs(center_x - x) ** 2 +
+	for x in range(dim.x):
+		for y in range(dim.y):
+			for z in range(dim.z):
+				mtx_field.mtx3(x, y, z) = float(_strength - sqrt(abs(center_x - x) ** 2 +
 				abs(center_y - y) ** 2 + abs(center_z - z) ** 2)) + randfn(.0, 1.)
 				
 	return mtx_field
