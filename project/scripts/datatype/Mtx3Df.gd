@@ -7,10 +7,12 @@ var _size: int = 0
 var _storage: Array[float]
 
 var mtx1: float:
-	get = _get_index, set = _set_index
+	get: return _get_index()
+	set(index): _set_index(index)
 	
-var mtx3: float:
-	get = _get_xyz, set = _set_xyz
+var mtx3:
+	get: return _get_xyz()
+	set(xyz): _set_xyz(xyz)
 
 
 func _init(dim: Vector3i, value: float = .0):
@@ -33,5 +35,14 @@ func xyz(index: int) -> Vector3i:
 func index(x: int, y: int, z: int) -> int:
 	return x + self._dim.x * (y + self._dim.y * z)
 
-func _get_index(index: int):
+func _get_index(index: int = 0) -> float:
 	return .0
+
+func _set_index(index: int, value: float = .0):
+	pass
+
+func _get_xyz(xyz: Vector3i = Vector3i()) -> float:
+	return .0
+
+func _set_xyz(xyz: Vector3i = Vector3i(), value: float = .0):
+	pass
