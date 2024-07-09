@@ -7,12 +7,12 @@ var _size: int = 0
 var _storage: Array[float]
 
 var mtx1: float:
-	get: return _get_index()
-	set(index): _set_index(index)
+	get: return _get_by_index()
+	set(value): _set_by_index(value)
 	
 var mtx3:
-	get: return _get_xyz()
-	set(xyz): _set_xyz(xyz)
+	get: return _get_by_xyz()
+	set(value): _set_by_xyz(value)
 
 
 func _init(dim: Vector3i, value: float = .0):
@@ -35,14 +35,17 @@ func xyz(index: int) -> Vector3i:
 func index(x: int, y: int, z: int) -> int:
 	return x + self._dim.x * (y + self._dim.y * z)
 
-func _get_index(index: int = 0) -> float:
-	return .0
+func _get_by_index(index: int = 0) -> float:
+	if index >= self._size || index < 0:
+		printerr("mtx3df index {index} out of bounds".format({"index": index}))
+		return .0
+	return _storage[index]
 
-func _set_index(index: int, value: float = .0):
+func _set_by_index(index: int, value: float = .0):
 	pass
 
-func _get_xyz(xyz: Vector3i = Vector3i()) -> float:
+func _get_by_xyz(xyz: Vector3i = Vector3i()) -> float:
 	return .0
 
-func _set_xyz(xyz: Vector3i = Vector3i(), value: float = .0):
+func _set_by_xyz(xyz: Vector3i = Vector3i(), value: float = .0):
 	pass
