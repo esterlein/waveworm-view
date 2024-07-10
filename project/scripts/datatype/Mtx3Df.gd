@@ -47,10 +47,8 @@ func _get_by_index(index: int = 0) -> float:
 	return -1.0
 
 func _set_by_index(value: float, index: int = 0):
-	if index >= self._size || index < 0:
-		printerr("mtx3df index {index} out of bounds".format({"index": index}))
-		return
-	_storage[index] = value
+	if _index_assert(index):
+		_storage[index] = value
 
 func _get_by_xyz(xyz: Vector3i = Vector3i()) -> float:
 	
