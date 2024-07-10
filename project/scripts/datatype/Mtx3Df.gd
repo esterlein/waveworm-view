@@ -34,17 +34,26 @@ func xyz(index: int) -> Vector3i:
 
 func index(x: int, y: int, z: int) -> int:
 	return x + self._dim.x * (y + self._dim.y * z)
-
-func _get_by_index(index: int = 0) -> float:
+	
+func _index_assert(index: int) -> bool:
 	if index >= self._size || index < 0:
 		printerr("mtx3df index {index} out of bounds".format({"index": index}))
-		return .0
-	return _storage[index]
+		return false
+	return true
 
-func _set_by_index(index: int, value: float = .0):
-	pass
+func _get_by_index(index: int = 0) -> float:
+	if _index_assert(index):
+		return _storage[index]
+	return -1.0
+
+func _set_by_index(value: float, index: int = 0):
+	if index >= self._size || index < 0:
+		printerr("mtx3df index {index} out of bounds".format({"index": index}))
+		return
+	_storage[index] = value
 
 func _get_by_xyz(xyz: Vector3i = Vector3i()) -> float:
+	
 	return .0
 
 func _set_by_xyz(xyz: Vector3i = Vector3i(), value: float = .0):
