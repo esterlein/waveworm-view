@@ -11,8 +11,8 @@ var mtx1: float:
 	set(value): _set_by_index(value)
 	
 var mtx3:
-	get: return _get_by_xyz()
-	set(value): _set_by_xyz(value)
+	get: return _get_by_vec()
+	set(value): _set_by_vec(value)
 
 
 func _init(dim: Vector3i, value: float = .0):
@@ -32,8 +32,8 @@ func xyz(index: int) -> Vector3i:
 	
 	return Vector3i(x, y, z)
 
-func index(x: int, y: int, z: int) -> int:
-	return x + self._dim.x * (y + self._dim.y * z)
+func get_index(vec: Vector3i) -> int:
+	return vec.x + self._dim.x * (vec.y + self._dim.y * vec.z)
 	
 func _index_assert(index: int) -> bool:
 	if index >= self._size || index < 0:
@@ -50,9 +50,8 @@ func _set_by_index(value: float, index: int = 0):
 	if _index_assert(index):
 		_storage[index] = value
 
-func _get_by_xyz(xyz: Vector3i = Vector3i()) -> float:
-	
-	return .0
+func _get_by_vec(vec: Vector3i = Vector3i()) -> float:
+	return _get_by_index(get_index(vec))
 
-func _set_by_xyz(xyz: Vector3i = Vector3i(), value: float = .0):
-	pass
+func _set_by_vec(vec: Vector3i = Vector3i(), value: float = .0):
+	_set_by_index(value, get_index(vec))
