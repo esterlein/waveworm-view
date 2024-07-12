@@ -24,9 +24,9 @@ func get_gradient_sphere(dim: Vector3i) -> Mtx3Df:
 	for x in range(dim.x):
 		for y in range(dim.y):
 			for z in range(dim.z):
-				var value: float = mtx_field.mtx1(0)
-				mtx_field.mtx1(0) = float(_strength - sqrt(abs(center_x - x) ** 2 +
+				var value := float(_strength - sqrt(abs(center_x - x) ** 2 +
 				abs(center_y - y) ** 2 + abs(center_z - z) ** 2)) + randfn(.0, 1.)
+				mtx_field.set_by_vec(Vector3i(x, y, z), value)
 				
 	return mtx_field
 

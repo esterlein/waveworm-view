@@ -6,14 +6,6 @@ var _dim: Vector3i
 var _size: int = 0
 var _storage: Array[float]
 
-var mtx1: float:
-	get: return _get_by_index()
-	set(value): _set_by_index(value)
-	
-var mtx3: float:
-	get: return _get_by_vec()
-	set(value): _set_by_vec(value)
-
 
 func _init(dim: Vector3i, value: float = .0):
 	self._dim = dim
@@ -41,17 +33,17 @@ func _index_assert(index: int) -> bool:
 		return false
 	return true
 
-func _get_by_index(index: int = 0) -> float:
+func get_by_index(index: int) -> float:
 	if _index_assert(index):
 		return _storage[index]
 	return -1.0
 
-func _set_by_index(value: float, index: int = 0):
+func set_by_index(index: int, value: float):
 	if _index_assert(index):
 		_storage[index] = value
 
-func _get_by_vec(vec: Vector3i = Vector3i()) -> float:
-	return _get_by_index(get_index(vec))
+func get_by_vec(vec: Vector3i) -> float:
+	return get_by_index(get_index(vec))
 
-func _set_by_vec(value: float, vec: Vector3i = Vector3i()):
-	_set_by_index(value, get_index(vec))
+func set_by_vec(vec: Vector3i, value: float):
+	set_by_index(value, get_index(vec))
