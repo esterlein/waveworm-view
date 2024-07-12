@@ -47,3 +47,6 @@ func get_by_vec(vec: Vector3i) -> float:
 
 func set_by_vec(vec: Vector3i, value: float):
 	set_by_index(value, get_index(vec))
+
+func size() -> int:
+	return self._size
