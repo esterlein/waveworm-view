@@ -21,7 +21,7 @@ func _init(dim: Vector3i, value: float = .0):
 	self._storage.resize(self._size)
 	self._storage.fill(value)
 
-func xyz(index: int) -> Vector3i:
+func get_xyz(index: int) -> Vector3i:
 	if index >= self._size || index < 0:
 		printerr("mtx3df index {index} out of bounds".format({"index": index}))
 		return Vector3i()
