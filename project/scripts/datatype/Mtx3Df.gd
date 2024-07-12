@@ -10,7 +10,7 @@ var mtx1: float:
 	get: return _get_by_index()
 	set(value): _set_by_index(value)
 	
-var mtx3:
+var mtx3: float:
 	get: return _get_by_vec()
 	set(value): _set_by_vec(value)
 
@@ -53,5 +53,5 @@ func _set_by_index(value: float, index: int = 0):
 func _get_by_vec(vec: Vector3i = Vector3i()) -> float:
 	return _get_by_index(get_index(vec))
 
-func _set_by_vec(vec: Vector3i = Vector3i(), value: float = .0):
+func _set_by_vec(value: float, vec: Vector3i = Vector3i()):
 	_set_by_index(value, get_index(vec))
