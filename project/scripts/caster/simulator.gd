@@ -1,5 +1,5 @@
 class_name Simulator
-extends Object
+extends RefCounted
 
 
 var _size: int = 10

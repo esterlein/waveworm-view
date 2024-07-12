@@ -1,5 +1,5 @@
 class_name Caster
-extends Object
+extends RefCounted
 
 
 var size: int = 10

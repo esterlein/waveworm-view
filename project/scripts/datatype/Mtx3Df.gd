@@ -1,5 +1,5 @@
 class_name Mtx3Df
-extends Object
+extends RefCounted
 
 
 var _dim: Vector3i
