@@ -10,4 +10,6 @@ var strength: int
 var probe_density_perc: int
 var probe_sparsity_elem: int
 
-var mtx: Mtx3Df
+var mtx_field: Mtx3Df
+var mtx_probe: Mtx3Df
+var mtx_inter: Mtx3Df
