@@ -13,7 +13,7 @@ func _init(dim: Vector3i, value: float = .0):
 	self._storage.resize(self._size)
 	self._storage.fill(value)
 
-func get_xyz(index: int) -> Vector3i:
+func _xyz(index: int) -> Vector3i:
 	if index >= self._size || index < 0:
 		printerr("mtx3df index {index} out of bounds".format({"index": index}))
 		return Vector3i()
@@ -24,7 +24,7 @@ func get_xyz(index: int) -> Vector3i:
 	
 	return Vector3i(x, y, z)
 
-func get_index(vec: Vector3i) -> int:
+func _index(vec: Vector3i) -> int:
 	return vec.x + self._dim.x * (vec.y + self._dim.y * vec.z)
 	
 func _index_assert(index: int) -> bool:
@@ -43,10 +43,17 @@ func setid(index: int, value: float):
 		_storage[index] = value
 
 func getvec(vec: Vector3i) -> float:
-	return getid(get_index(vec))
+	return getid(_index(vec))
 
 func setvec(vec: Vector3i, value: float):
-	setid(value, get_index(vec))
+	setid(value, _index(vec))
+
+func addid(index: int, value: float):
+	if _index_assert(index):
+		_storage[index] += value
+
+func addvec(vec: Vector3i, value: float):
+	addid(value, _index(vec))
 
 func size() -> int:
 	return self._size
