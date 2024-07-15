@@ -33,20 +33,20 @@ func _index_assert(index: int) -> bool:
 		return false
 	return true
 
-func get_by_index(index: int) -> float:
+func getid(index: int) -> float:
 	if _index_assert(index):
 		return _storage[index]
 	return -1.0
 
-func set_by_index(index: int, value: float):
+func setid(index: int, value: float):
 	if _index_assert(index):
 		_storage[index] = value
 
-func get_by_vec(vec: Vector3i) -> float:
-	return get_by_index(get_index(vec))
+func getvec(vec: Vector3i) -> float:
+	return getid(get_index(vec))
 
-func set_by_vec(vec: Vector3i, value: float):
-	set_by_index(value, get_index(vec))
+func setvec(vec: Vector3i, value: float):
+	setid(value, get_index(vec))
 
 func size() -> int:
 	return self._size

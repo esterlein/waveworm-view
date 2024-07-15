@@ -4,7 +4,6 @@ extends RefCounted
 
 var _size: int = 10
 var _noise: int = 2
-var _strength: int = 10
 
 var _probe_density_perc: int = 10
 var _probe_sparsity_elem: int = 1
@@ -14,7 +13,7 @@ func _init():
 	pass
 
 
-func get_gradient_sphere(dim: Vector3i) -> Mtx3Df:
+static func get_gradient_sphere(dim: Vector3i, strength: int) -> Mtx3Df:
 	var mtx_field := Mtx3Df.new(dim)
 	
 	var center_x: float = dim.x / 2.0
@@ -24,26 +23,27 @@ func get_gradient_sphere(dim: Vector3i) -> Mtx3Df:
 	for x in range(dim.x):
 		for y in range(dim.y):
 			for z in range(dim.z):
-				var value := float(_strength - sqrt(abs(center_x - x) ** 2 +
+				var value := float(strength - sqrt(abs(center_x - x) ** 2 +
 				abs(center_y - y) ** 2 + abs(center_z - z) ** 2)) + randfn(.0, 1.)
 				mtx_field.set_by_vec(Vector3i(x, y, z), value)
-				
+	
 	return mtx_field
 
 
-func scalar_offset_normalize(mtx: Array[float], size: int = _size) -> Array[float]:
-	var min_val: float = 0
+func scalar_offset_normalize(mtx: Mtx3Df) -> Mtx3Df:
+	var size := mtx.size()
+	var min_val: float = 0.
 	
 	for x in range(size):
 		for y in range(size):
 			for z in range(size):
-				min_val = min(min_val, mtx[x + y * 10 + z * 100])
+				min_val = min(min_val, mtx.get_by_vec(Vector3i(x, y, z)))
 	
 	for x in range(size):
 		for y in range(size):
 			for z in range(size):
-				mtx[x + y * 10 + z * 100] += -min_val
-				
+				mtx.set_by_vec() += -min_val
+	
 	return mtx
 
 
