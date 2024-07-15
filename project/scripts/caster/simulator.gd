@@ -42,7 +42,7 @@ func scalar_offset_normalize(mtx: Mtx3Df) -> Mtx3Df:
 	for x in range(size):
 		for y in range(size):
 			for z in range(size):
-				mtx.set_by_vec() += -min_val
+				mtx.addvec(Vector3i(x, y, z), -min_val)
 	
 	return mtx
 
