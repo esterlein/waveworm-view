@@ -2,15 +2,15 @@ class_name Mtx3Df
 extends RefCounted
 
 
-var _dim: Vector3i
-var _size: int = 0
+var _dims: Vector3i
 var _storage: Array[float]
 
 
-func _init(dim: Vector3i, value: float = .0):
-	self._dim = dim
-	self._size = dim.x * dim.y * dim.z
-	self._storage.resize(self._size)
+func _init(dims: Vector3i, value: float = .0):
+	self._dims = dims
+	
+	var size := dims.x * dims.y * dims.z
+	self._storage.resize(size)
 	self._storage.fill(value)
 
 func _xyz(index: int) -> Vector3i:
@@ -18,14 +18,14 @@ func _xyz(index: int) -> Vector3i:
 		printerr("mtx3df index {index} out of bounds".format({"index": index}))
 		return Vector3i()
 	
-	var x: int = index % self._dim.x
-	var y: int = ((index - x) / self._dim.x) % self._dim.y
-	var z: int = (index - x - self._dim.x * y)/(self._dim.x * self._dim.y)
+	var x: int = index % self._dims.x
+	var y: int = ((index - x) / self._dims.x) % self._dims.y
+	var z: int = (index - x - self._dims.x * y)/(self._dims.x * self._dims.y)
 	
 	return Vector3i(x, y, z)
 
 func _index(vec: Vector3i) -> int:
-	return vec.x + self._dim.x * (vec.y + self._dim.y * vec.z)
+	return vec.x + self._dims.x * (vec.y + self._dims.y * vec.z)
 	
 func _index_assert(index: int) -> bool:
 	if index >= self._size || index < 0:
@@ -56,4 +56,7 @@ func addvec(vec: Vector3i, value: float):
 	addid(value, _index(vec))
 
 func size() -> int:
-	return self._size
+	return self._storage.size()
+
+func dims() -> Vector3i:
+	return self._dims
