@@ -47,7 +47,7 @@ func scalar_offset_normalize(mtx: Mtx3Df) -> Mtx3Df:
 	return mtx
 
 
-func get_probe(mtx_field: Array[float], perc: int = _probe_density_perc) -> Array[float]:
+static func get_probe(mtx_field: Mtx3Df, perc: int) -> Mtx3Df:
 	var size: int = mtx_field.size()
 	var mtx_probe: Array[float]
 	mtx_probe.resize(size)
