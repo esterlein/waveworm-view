@@ -50,7 +50,6 @@ func scalar_offset_normalize(mtx: Mtx3Df) -> Mtx3Df:
 static func get_probe(mtx_field: Mtx3Df, perc: int) -> Mtx3Df:
 	var size: int = mtx_field.size()
 	var mtx_probe := Mtx3Df.new(mtx_field.dims())
-	mtx_probe.resize(size)
 	mtx_probe.fill(NAN)
 	
 	var num_probes := int(size * perc / 100)

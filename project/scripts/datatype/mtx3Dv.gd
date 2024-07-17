@@ -3,10 +3,10 @@ extends RefCounted
 
 
 var _dims: Vector3i
-var _storage: Array[float]
+var _storage: Array[Variant]
 
 
-func _init(dims: Vector3i, value: float = .0):
+func _init(dims: Vector3i, value: Variant = NAN):
 	self._dims = dims
 	
 	var size := dims.x * dims.y * dims.z
@@ -33,26 +33,26 @@ func _index_assert(index: int) -> bool:
 		return false
 	return true
 
-func getid(index: int) -> float:
+func getid(index: int) -> Variant:
 	if _index_assert(index):
 		return _storage[index]
 	return -1.0
 
-func setid(index: int, value: float):
+func setid(index: int, value: Variant):
 	if _index_assert(index):
 		_storage[index] = value
 
-func getvec(vec: Vector3i) -> float:
+func getvec(vec: Vector3i) -> Variant:
 	return getid(_index(vec))
 
-func setvec(vec: Vector3i, value: float):
+func setvec(vec: Vector3i, value: Variant):
 	setid(value, _index(vec))
 
-func addid(index: int, value: float):
+func addid(index: int, value: Variant):
 	if _index_assert(index):
 		_storage[index] += value
 
-func addvec(vec: Vector3i, value: float):
+func addvec(vec: Vector3i, value: Variant):
 	addid(value, _index(vec))
 
 func size() -> int:
