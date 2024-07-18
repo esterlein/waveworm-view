@@ -13,8 +13,8 @@ func _init():
 	pass
 
 
-static func get_gradient_sphere(dim: Vector3i, strength: int) -> Mtx3Df:
-	var mtx_field := Mtx3Df.new(dim)
+static func get_gradient_sphere(dim: Vector3i, strength: int) -> Mtx3Dv:
+	var mtx_field := Mtx3Dv.new(dim)
 	
 	var center_x: float = dim.x / 2.0
 	var center_y: float = dim.y / 2.0
@@ -30,7 +30,7 @@ static func get_gradient_sphere(dim: Vector3i, strength: int) -> Mtx3Df:
 	return mtx_field
 
 
-func scalar_offset_normalize(mtx: Mtx3Df) -> Mtx3Df:
+func scalar_offset_normalize(mtx: Mtx3Dv) -> Mtx3Dv:
 	var size := mtx.size()
 	var min_val: float = 0.
 	
@@ -47,9 +47,9 @@ func scalar_offset_normalize(mtx: Mtx3Df) -> Mtx3Df:
 	return mtx
 
 
-static func get_probe(mtx_field: Mtx3Df, perc: int) -> Mtx3Df:
+static func get_probe(mtx_field: Mtx3Dv, perc: int) -> Mtx3Dv:
 	var size: int = mtx_field.size()
-	var mtx_probe := Mtx3Df.new(mtx_field.dims())
+	var mtx_probe := Mtx3Dv.new(mtx_field.dims())
 	mtx_probe.fill(NAN)
 	
 	var num_probes := int(size * perc / 100)

@@ -1,19 +1,21 @@
-class_name Mtx3Df
+class_name Mtx3Dv
 extends RefCounted
 
 
 var _dims: Vector3i
+var _type: int
 var _storage: Array[Variant]
 
 
 func _init(dims: Vector3i, value: Variant = NAN):
+	self._type = typeof(value)
 	self._dims = dims
 	
 	var size := dims.x * dims.y * dims.z
 	self._storage.resize(size)
 	self._storage.fill(value)
 
-func _xyz(index: int) -> Vector3i:
+func _toV(index: int) -> Vector3i:
 	if index >= self._size || index < 0:
 		printerr("mtx3df index {index} out of bounds".format({"index": index}))
 		return Vector3i()
@@ -24,7 +26,7 @@ func _xyz(index: int) -> Vector3i:
 	
 	return Vector3i(x, y, z)
 
-func _index(vec: Vector3i) -> int:
+func _toI(vec: Vector3i) -> int:
 	return vec.x + self._dims.x * (vec.y + self._dims.y * vec.z)
 	
 func _index_assert(index: int) -> bool:
@@ -33,27 +35,27 @@ func _index_assert(index: int) -> bool:
 		return false
 	return true
 
-func getid(index: int) -> Variant:
+func getI(index: int) -> Variant:
 	if _index_assert(index):
 		return _storage[index]
 	return -1.0
 
-func setid(index: int, value: Variant):
+func setI(index: int, value: Variant):
 	if _index_assert(index):
 		_storage[index] = value
 
-func getvec(vec: Vector3i) -> Variant:
-	return getid(_index(vec))
+func getV(vec: Vector3i) -> Variant:
+	return getI(_toI(vec))
 
-func setvec(vec: Vector3i, value: Variant):
-	setid(value, _index(vec))
+func setV(vec: Vector3i, value: Variant):
+	setI(value, _toI(vec))
 
-func addid(index: int, value: Variant):
+func addI(index: int, value: Variant):
 	if _index_assert(index):
 		_storage[index] += value
 
-func addvec(vec: Vector3i, value: Variant):
-	addid(value, _index(vec))
+func addV(vec: Vector3i, value: Variant):
+	addI(value, _toI(vec))
 
 func size() -> int:
 	return self._storage.size()
