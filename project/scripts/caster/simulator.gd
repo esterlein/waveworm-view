@@ -21,7 +21,7 @@ static func get_gradient_sphere(dim: Vector3i, strength: int) -> Mtx3Dv:
 			for z in range(dim.z):
 				var value := float(strength - sqrt(abs(center_x - x) ** 2 +
 				abs(center_y - y) ** 2 + abs(center_z - z) ** 2)) + randfn(.0, 1.)
-				mtx_field.setvec(Vector3i(x, y, z), value)
+				mtx_field.setV(Vector3i(x, y, z), value)
 	
 	return mtx_field
 
@@ -33,12 +33,12 @@ static func scalar_offset_normalize(mtx: Mtx3Dv) -> Mtx3Dv:
 	for x in range(size):
 		for y in range(size):
 			for z in range(size):
-				min_val = min(min_val, mtx.getvec(Vector3i(x, y, z)))
+				min_val = min(min_val, mtx.getV(Vector3i(x, y, z)))
 	
 	for x in range(size):
 		for y in range(size):
 			for z in range(size):
-				mtx.addvec(Vector3i(x, y, z), -min_val)
+				mtx.addV(Vector3i(x, y, z), -min_val)
 	
 	return mtx
 
