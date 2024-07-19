@@ -66,8 +66,11 @@ func addI(index: int, value: Variant):
 func addV(vec: Vector3i, value: Variant):
 	addI(value, _toI(vec))
 
+func dims() -> Vector3i:
+	return self._dims
+
 func size() -> int:
 	return self._storage.size()
 
-func dims() -> Vector3i:
-	return self._dims
+func type() -> int:
+	return self._type
