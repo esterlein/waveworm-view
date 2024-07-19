@@ -9,10 +9,6 @@ var _probe_density_perc: int = 10
 var _probe_sparsity_elem: int = 1
 
 
-func _init():
-	pass
-
-
 static func get_gradient_sphere(dim: Vector3i, strength: int) -> Mtx3Dv:
 	var mtx_field := Mtx3Dv.new(dim)
 	
@@ -30,7 +26,7 @@ static func get_gradient_sphere(dim: Vector3i, strength: int) -> Mtx3Dv:
 	return mtx_field
 
 
-func scalar_offset_normalize(mtx: Mtx3Dv) -> Mtx3Dv:
+static func scalar_offset_normalize(mtx: Mtx3Dv) -> Mtx3Dv:
 	var size := mtx.size()
 	var min_val: float = 0.
 	
@@ -50,7 +46,6 @@ func scalar_offset_normalize(mtx: Mtx3Dv) -> Mtx3Dv:
 static func get_probe(mtx_field: Mtx3Dv, perc: int) -> Mtx3Dv:
 	var size: int = mtx_field.size()
 	var mtx_probe := Mtx3Dv.new(mtx_field.dims())
-	mtx_probe.fill(NAN)
 	
 	var num_probes := int(size * perc / 100)
 	
@@ -71,7 +66,7 @@ static func get_probe(mtx_field: Mtx3Dv, perc: int) -> Mtx3Dv:
 	return mtx_probe
 
 
-func _backtrack(mtx: Array[float], coords: Vector3i, depth: int, memo: Dictionary = {}) -> bool:
+static func _backtrack(mtx: Mtx3Dv, coords: Vector3i, depth: int, memo: Dictionary = {}) -> bool:
 	if coords.x < 0 or coords.y < 0 or coords.z < 0:
 		return false
 	if coords in memo:

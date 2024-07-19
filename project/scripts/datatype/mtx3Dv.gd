@@ -21,6 +21,7 @@ func _type_assert(value: Variant) -> bool:
 		return true
 	elif self._type == typeof(value):
 		return true
+	
 	printerr("mtx3dv type does not match assignment type {type}".format({"type": typeof(value)}))
 	return false
 
