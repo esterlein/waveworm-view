@@ -15,11 +15,21 @@ func _init(dims: Vector3i, value: Variant = NAN):
 	self._storage.resize(size)
 	self._storage.fill(value)
 
+func _index_assert(index: int) -> bool:
+	if index >= self._size || index < 0:
+		printerr("mtx3dv index {index} out of bounds".format({"index": index}))
+		return false
+	return true
+
+func _vector_assert(vec: Vector3i) -> bool:
+	if vec.x >= self._dims.x || vec.y >= self._dims.y || vec.z >= self._dims.z:
+		printerr("mtx3dv vector {vector} out of bounds".format({"vector": vec}))
+		return false
+	return true
+
 func _type_assert(value: Variant) -> bool:
-	if self._type == NAN:
-		self._type
-		return true
-	elif self._type == typeof(value):
+	var type: int = typeof(value)
+	if self._type == type || self._type == NAN || type == NAN:
 		return true
 	
 	printerr("mtx3dv type does not match assignment type {type}".format({"type": typeof(value)}))
@@ -37,18 +47,6 @@ func _toV(index: int) -> Vector3i:
 
 func _toI(vec: Vector3i) -> int:
 	return vec.x + self._dims.x * (vec.y + self._dims.y * vec.z)
-
-func _index_assert(index: int) -> bool:
-	if index >= self._size || index < 0:
-		printerr("mtx3dv index {index} out of bounds".format({"index": index}))
-		return false
-	return true
-
-func _vector_assert(vec: Vector3i) -> bool:
-	if vec.x >= self._dims.x || vec.y >= self._dims.y || vec.z >= self._dims.z:
-		printerr("mtx3dv vector {vector} out of bounds".format({"vector": vec}))
-		return false
-	return true
 
 func getI(index: int) -> Variant:
 	if _index_assert(index):
