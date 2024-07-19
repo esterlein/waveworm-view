@@ -15,9 +15,17 @@ func _init(dims: Vector3i, value: Variant = NAN):
 	self._storage.resize(size)
 	self._storage.fill(value)
 
+func _type_assert(value: Variant) -> bool:
+	if self._type == NAN:
+		self._type
+		return true
+	elif self._type == typeof(value):
+		return true
+	printerr("mtx3dv type does not match assignment type {type}".format({"type": typeof(value)}))
+	return false
+
 func _toV(index: int) -> Vector3i:
-	if index >= self._size || index < 0:
-		printerr("mtx3df index {index} out of bounds".format({"index": index}))
+	if not _index_assert(index):
 		return Vector3i()
 	
 	var x: int = index % self._dims.x
@@ -31,7 +39,7 @@ func _toI(vec: Vector3i) -> int:
 	
 func _index_assert(index: int) -> bool:
 	if index >= self._size || index < 0:
-		printerr("mtx3df index {index} out of bounds".format({"index": index}))
+		printerr("mtx3dv index {index} out of bounds".format({"index": index}))
 		return false
 	return true
 
@@ -41,7 +49,7 @@ func getI(index: int) -> Variant:
 	return -1.0
 
 func setI(index: int, value: Variant):
-	if _index_assert(index):
+	if _type_assert(value) && _index_assert(index):
 		_storage[index] = value
 
 func getV(vec: Vector3i) -> Variant:
@@ -51,7 +59,7 @@ func setV(vec: Vector3i, value: Variant):
 	setI(value, _toI(vec))
 
 func addI(index: int, value: Variant):
-	if _index_assert(index):
+	if _type_assert(value) && _index_assert(index):
 		_storage[index] += value
 
 func addV(vec: Vector3i, value: Variant):
