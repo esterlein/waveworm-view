@@ -2,13 +2,6 @@ class_name Simulator
 extends RefCounted
 
 
-var _size: int = 10
-var _noise: int = 2
-
-var _probe_density_perc: int = 10
-var _probe_sparsity_elem: int = 1
-
-
 static func get_gradient_sphere(dim: Vector3i, strength: int) -> Mtx3Dv:
 	var mtx_field := Mtx3Dv.new(dim)
 	
@@ -44,8 +37,8 @@ static func scalar_offset_normalize(mtx: Mtx3Dv) -> Mtx3Dv:
 
 
 static func get_probe(field: SimField) -> Mtx3Dv:
-	var size: int = mtx_field.size()
-	var mtx_probe := Mtx3Dv.new(mtx_field.dims())
+	var size := field.size
+	var mtx_probe := Mtx3Dv.new(field.dim)
 	
 	var num_probes := int(size * perc / 100)
 	

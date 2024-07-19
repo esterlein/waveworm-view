@@ -44,6 +44,12 @@ func _index_assert(index: int) -> bool:
 		return false
 	return true
 
+func _vector_assert(vec: Vector3i) -> bool:
+	if vec.x >= self._dims.x || vec.y >= self._dims.y || vec.z >= self._dims.z:
+		printerr("mtx3dv vector {vector} out of bounds".format({"vector": vec}))
+		return false
+	return true
+
 func getI(index: int) -> Variant:
 	if _index_assert(index):
 		return _storage[index]
