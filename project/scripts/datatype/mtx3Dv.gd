@@ -36,7 +36,7 @@ func _toV(index: int) -> Vector3i:
 
 func _toI(vec: Vector3i) -> int:
 	return vec.x + self._dims.x * (vec.y + self._dims.y * vec.z)
-	
+
 func _index_assert(index: int) -> bool:
 	if index >= self._size || index < 0:
 		printerr("mtx3dv index {index} out of bounds".format({"index": index}))
