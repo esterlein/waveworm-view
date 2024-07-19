@@ -43,7 +43,7 @@ static func scalar_offset_normalize(mtx: Mtx3Dv) -> Mtx3Dv:
 	return mtx
 
 
-static func get_probe(mtx_field: Mtx3Dv, perc: int) -> Mtx3Dv:
+static func get_probe(field: SimField) -> Mtx3Dv:
 	var size: int = mtx_field.size()
 	var mtx_probe := Mtx3Dv.new(mtx_field.dims())
 	
