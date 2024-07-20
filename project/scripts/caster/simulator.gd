@@ -38,22 +38,19 @@ static func scalar_offset_normalize(mtx: Mtx3Dv) -> Mtx3Dv:
 
 static func get_probe(field: SimField) -> Mtx3Dv:
 	var size := field.size
-	var mtx_probe := Mtx3Dv.new(field.dim)
+	var mtx_probe := Mtx3Dv.new(field.dims)
 	
-	var num_probes := int(size * perc / 100)
+	var num_probes := int(size * field.probe_density_perc / 100)
 	
 	var num_p: int = 0
 	while num_p < num_probes:
 		var index: int = randi_range(0, size)
+		var coords = mtx_probe.toV(index)
 		
-		var x := int(index / size ** 2)
-		var y := int(index / x)
-		var z := int(index % x)
-		
-		if _backtrack(mtx_probe, Vector3i(x, y, z), _probe_sparsity_elem) == false:
+		if _backtrack(mtx_probe, coords, field.probe_sparsity_elem) == false:
 			continue
 		
-		mtx_probe[index] = mtx_field[index]
+		mtx_probe.setI(index, field.mtx_field.getI(index))
 		num_p += 1
 	
 	return mtx_probe
