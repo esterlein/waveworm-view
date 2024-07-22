@@ -25,6 +25,7 @@ func _init(dims: Vector3i, noise: int, strength: int, probe_density: int, probe_
 	
 	self.size = dims.x * dims.y * dims.z
 
+
 func assert_parameters() -> bool:
 	if self.dims == mtx_field.dims() && self.dims == mtx_probe.dims() && self.dims == mtx_inter.dims():
 		return true

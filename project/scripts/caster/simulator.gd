@@ -40,14 +40,20 @@ static func get_probe(field: SimField) -> Mtx3Dv:
 	var size := field.size
 	var mtx_probe := Mtx3Dv.new(field.dims)
 	
-	var num_probes := int(size * field.probe_density_perc / 100)
+	var perc_probe: int = field.probe_density_perc
+	var free_range: int = field.probe_sparsity_elem
+	if not (perc_probe > 0 && free_range >= 0):
+		printerr("wrong field parameters {dens, spar}".format({"dens": perc_probe, "spar": free_range}))
+		return null
+	
+	var num_probes := int(size * perc_probe / 100)
 	
 	var num_p: int = 0
 	while num_p < num_probes:
 		var index: int = randi_range(0, size)
 		var coords = mtx_probe.toV(index)
 		
-		if _bfs(mtx_probe, coords, field.probe_sparsity_elem) == false:
+		if not _bfs(mtx_probe, coords, free_range):
 			continue
 		
 		mtx_probe.setI(index, field.mtx_field.getI(index))
@@ -56,8 +62,8 @@ static func get_probe(field: SimField) -> Mtx3Dv:
 	return mtx_probe
 
 
-static func _bfs(mtx: Mtx3Dv, coords: Vector3i, depth: int, memo: Dictionary = {}) -> bool:
-	if coords.x < 0 or coords.y < 0 or coords.z < 0:
+static func _bfs(mtx: Mtx3Dv, coords: Vector3i, range: int, memo: Dictionary = {}) -> bool:
+	if coords.x < 0 or coords.y < 0 or coords.z:
 		return false
 	if coords in memo:
 		return false
@@ -66,6 +72,15 @@ static func _bfs(mtx: Mtx3Dv, coords: Vector3i, depth: int, memo: Dictionary = {
 	else:
 		memo[coords] = true # use this for something
 	
+	
+	
 	var queue: Array[Vector3i]
+	queue.resize(3 ** (range + 1))
+	queue[0] = coords
+	
+	
+	
+	while not queue.is_empty():
+		var curr: Vector3i = queue.pop_front()
 	
 	return false
