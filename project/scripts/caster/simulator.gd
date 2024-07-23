@@ -48,16 +48,19 @@ static func get_probe(field: SimField) -> Mtx3Dv:
 	
 	var num_probes := int(size * perc_probe / 100)
 	
-	var num_p: int = 0
-	while num_p < num_probes:
+	var probe: int = 0
+	var probes_coords: Dictionary = {}
+	while probe < num_probes:
 		var index: int = randi_range(0, size)
 		var coords = mtx_probe.toV(index)
+		
+		// var diff: Vector3i = abs()
 		
 		if not _bfs(mtx_probe, coords, free_range):
 			continue
 		
 		mtx_probe.setI(index, field.mtx_field.getI(index))
-		num_p += 1
+		probe += 1
 	
 	return mtx_probe
 
