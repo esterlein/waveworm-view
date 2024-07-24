@@ -58,10 +58,9 @@ static func get_probe(field: SimField) -> Mtx3Dv:
 		for entry in coords_map:
 			var diff: Vector3i = abs(entry - coords)
 			for d in diff:
-				if d <= free_range * 2:
-					continue
-		
-		mtx_probe.setI(index, field.mtx_field.getI(index))
-		cnt_probe += 1
+				if d > free_range * 2:
+					mtx_probe.setI(index, field.mtx_field.getI(index))
+					cnt_probe += 1
+					break
 	
 	return mtx_probe
