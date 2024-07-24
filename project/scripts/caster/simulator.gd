@@ -51,7 +51,7 @@ static func get_probe(field: SimField) -> Mtx3Dv:
 		.format({"dens": perc_probe, "spar": free_range}))
 		return null
 	
-	var num_probes := int(field.size * perc_probe / 100)
+	var num_probes: int = field.size * perc_probe / 100
 	
 	var cnt_probe: int = 0
 	var coords_map: Dictionary = {}
