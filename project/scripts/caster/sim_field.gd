@@ -16,7 +16,7 @@ var mtx_probe: Mtx3Dv
 var mtx_inter: Mtx3Dv
 
 
-func _init(dims: Vector3i, noise: int, strength: int, probe_density: int, probe_sparsity: int):
+func _init(dims: Vector3i, noise: int, strength: int, probe_density: float, probe_sparsity: int):
 	self.dims = dims
 	self.noise = noise
 	self.strength = strength

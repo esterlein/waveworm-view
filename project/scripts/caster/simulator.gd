@@ -37,7 +37,6 @@ static func scalar_offset_normalize(mtx: Mtx3Dv) -> Mtx3Dv:
 
 
 static func get_probe(field: SimField) -> Mtx3Dv:
-	var size := field.size
 	var mtx_probe := Mtx3Dv.new(field.dims)
 	
 	var perc_probe: int = field.probe_density_perc
@@ -46,13 +45,19 @@ static func get_probe(field: SimField) -> Mtx3Dv:
 		printerr("wrong field parameters {dens, spar}".format({"dens": perc_probe, "spar": free_range}))
 		return null
 	
-	var num_probes := int(size * perc_probe / 100)
+	var chunk_size: int = (free_range * 2 + 1) ** 3
+	if field.size / chunk_size <= perc_probe:
+		printerr("required percent of field or volume required for probing distance is too large {dens, spar}" \
+		.format({"dens": perc_probe, "spar": free_range}))
+		return null
+	
+	var num_probes := int(field.size * perc_probe / 100)
 	
 	var cnt_probe: int = 0
 	var coords_map: Dictionary = {}
 	
 	while cnt_probe < num_probes:
-		var index: int = randi_range(0, size)
+		var index: int = randi_range(0, field.size)
 		var coords = mtx_probe.toV(index)
 		
 		for entry in coords_map:
@@ -62,7 +67,5 @@ static func get_probe(field: SimField) -> Mtx3Dv:
 					mtx_probe.setI(index, field.mtx_field.getI(index))
 					cnt_probe += 1
 					break
-					
-	# infinite loop if wrong density sparcity ratio
 	
 	return mtx_probe
