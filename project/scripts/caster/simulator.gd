@@ -62,5 +62,7 @@ static func get_probe(field: SimField) -> Mtx3Dv:
 					mtx_probe.setI(index, field.mtx_field.getI(index))
 					cnt_probe += 1
 					break
+					
+	# infinite loop if wrong density sparcity ratio
 	
 	return mtx_probe
