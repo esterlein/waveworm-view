@@ -48,42 +48,20 @@ static func get_probe(field: SimField) -> Mtx3Dv:
 	
 	var num_probes := int(size * perc_probe / 100)
 	
-	var probe: int = 0
-	var probes_coords: Dictionary = {}
-	while probe < num_probes:
+	var cnt_probe: int = 0
+	var coords_map: Dictionary = {}
+	
+	while cnt_probe < num_probes:
 		var index: int = randi_range(0, size)
 		var coords = mtx_probe.toV(index)
 		
-		// var diff: Vector3i = abs()
-		
-		if not _bfs(mtx_probe, coords, free_range):
-			continue
+		for entry in coords_map:
+			var diff: Vector3i = abs(entry - coords)
+			for d in diff:
+				if d <= free_range * 2:
+					continue
 		
 		mtx_probe.setI(index, field.mtx_field.getI(index))
-		probe += 1
+		cnt_probe += 1
 	
 	return mtx_probe
-
-
-static func _bfs(mtx: Mtx3Dv, coords: Vector3i, range: int, memo: Dictionary = {}) -> bool:
-	if coords.x < 0 or coords.y < 0 or coords.z:
-		return false
-	if coords in memo:
-		return false
-	if not is_nan(mtx.getV(coords)):
-		return false
-	else:
-		memo[coords] = true # use this for something
-	
-	
-	
-	var queue: Array[Vector3i]
-	queue.resize(3 ** (range + 1))
-	queue[0] = coords
-	
-	
-	
-	while not queue.is_empty():
-		var curr: Vector3i = queue.pop_front()
-	
-	return false
