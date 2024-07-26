@@ -36,7 +36,7 @@ static func scalar_offset_normalize(mtx: Mtx3Dv) -> Mtx3Dv:
 	return mtx
 
 
-static func get_probe(field: SimField) -> Mtx3Dv:
+static func get_probe(field: FieldCaster) -> Mtx3Dv:
 	var mtx_probe := Mtx3Dv.new(field.dims)
 	
 	var perc_probe: int = field.probe_density_perc

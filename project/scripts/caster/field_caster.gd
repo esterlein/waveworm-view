@@ -1,4 +1,4 @@
-class_name SimField
+class_name FieldCaster
 extends RefCounted
 
 
@@ -29,5 +29,5 @@ func _init(dims: Vector3i, noise: int, strength: int, probe_density: float, prob
 func assert_parameters() -> bool:
 	if self.dims == mtx_field.dims() && self.dims == mtx_probe.dims() && self.dims == mtx_inter.dims():
 		return true
-	printerr("sim field parameters mismatch")
+	printerr("field caster parameters mismatch")
 	return false
