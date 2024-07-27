@@ -36,35 +36,35 @@ static func scalar_offset_normalize(mtx: Mtx3Dv) -> Mtx3Dv:
 	return mtx
 
 
-static func get_probe(field: FieldCaster) -> Mtx3Dv:
-	var mtx_probe := Mtx3Dv.new(field.dims)
+static func get_probe(caster: FieldCaster) -> Mtx3Dv:
+	var mtx_probe := Mtx3Dv.new(caster.dims)
 	
-	var perc_probe: int = field.probe_density_perc
-	var free_range: int = field.probe_sparsity_elem
+	var perc_probe: int = caster.probe_density_perc
+	var free_range: int = caster.probe_sparsity_elem
 	if not (perc_probe > 0 && free_range >= 0):
 		printerr("wrong field parameters {dens, spar}".format({"dens": perc_probe, "spar": free_range}))
 		return null
 	
 	var chunk_size: int = (free_range * 2 + 1) ** 3
-	if field.size / chunk_size <= perc_probe:
+	if caster.size / chunk_size <= perc_probe:
 		printerr("required percent of field or volume required for probing distance is too large {dens, spar}" \
 		.format({"dens": perc_probe, "spar": free_range}))
 		return null
 	
-	var num_probes: int = field.size * perc_probe / 100
+	var num_probes: int = caster.size * perc_probe / 100
 	
 	var cnt_probe: int = 0
 	var coords_map: Dictionary = {}
 	
 	while cnt_probe < num_probes:
-		var index: int = randi_range(0, field.size)
+		var index: int = randi_range(0, caster.size)
 		var coords = mtx_probe.toV(index)
 		
 		for entry in coords_map:
 			var diff: Vector3i = abs(entry - coords)
 			for d in diff:
 				if d > free_range * 2:
-					mtx_probe.setI(index, field.mtx_field.getI(index))
+					mtx_probe.setI(index, caster.mtx_field.getI(index))
 					cnt_probe += 1
 					break
 	
