@@ -9,7 +9,7 @@ func _ready():
 	self.spawn_form()
 
 
-func _process(delta):
+func _process(_delta):
 	pass
 
 
