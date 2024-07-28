@@ -3,6 +3,7 @@ extends RefCounted
 
 
 var _dims: Vector3i
+var _size: int
 var _type: int
 var _storage: Array[Variant]
 
@@ -11,8 +12,8 @@ func _init(dims: Vector3i, value: Variant = NAN):
 	self._type = typeof(value)
 	self._dims = dims
 	
-	var size := dims.x * dims.y * dims.z
-	self._storage.resize(size)
+	self._size = dims.x * dims.y * dims.z
+	self._storage.resize(self._size)
 	self._storage.fill(value)
 
 func _assert_index(index: int) -> bool:
