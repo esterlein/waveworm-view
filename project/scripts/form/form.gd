@@ -5,7 +5,7 @@ extends Node3D
 var dims := Vector3i(10, 10, 10)
 var noise: int = 2
 var strength: int = 10
-var density: int = 10
+var density: int = 5
 var sparsity: int = 1
 
 

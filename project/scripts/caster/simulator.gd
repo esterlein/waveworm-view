@@ -56,15 +56,21 @@ static func get_probe(caster: FieldCaster) -> Mtx3Dv:
 	var cnt_probe: int = 0
 	var coords_map: Dictionary = {}
 	
+	coords_map[mtx_probe.toV(randi_range(0, caster.size - 1))] = true # utilize bool value
+	
 	while cnt_probe < num_probes:
 		var index: int = randi_range(0, caster.size - 1)
 		var coords = mtx_probe.toV(index)
 		
+		if coords_map.has(coords):
+			continue
+		
 		for entry in coords_map:
-			var diff: Vector3i = abs(entry - coords)
-			for d in diff:
-				if d > free_range * 2:
+			var vec_diff: Vector3i = abs(entry - coords)
+			for axis_diff in vec_diff:
+				if axis_diff > free_range * 2:
 					mtx_probe.setI(index, caster.mtx_field.getI(index))
+					coords_map[coords] = true # utilize bool value
 					cnt_probe += 1
 					break
 	
