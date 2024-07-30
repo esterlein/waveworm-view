@@ -64,7 +64,7 @@ func getV(vec: Vector3i) -> Variant:
 	return getI(toI(vec))
 
 func setV(vec: Vector3i, value: Variant):
-	setI(value, toI(vec))
+	setI(toI(vec), value)
 
 func addI(index: int, value: Variant):
 	if _assert_type(value) && _assert_index(index):

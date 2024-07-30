@@ -57,7 +57,7 @@ static func get_probe(caster: FieldCaster) -> Mtx3Dv:
 	var coords_map: Dictionary = {}
 	
 	while cnt_probe < num_probes:
-		var index: int = randi_range(0, caster.size)
+		var index: int = randi_range(0, caster.size - 1)
 		var coords = mtx_probe.toV(index)
 		
 		for entry in coords_map:
