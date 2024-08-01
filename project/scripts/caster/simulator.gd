@@ -2,7 +2,7 @@ class_name Simulator
 extends RefCounted
 
 
-static func get_gradient_sphere(dim: Vector3i, strength: int) -> Mtx3Dv:
+static func get_gradient_sphere(dim: Vector3i, strength: int, noise: float) -> Mtx3Dv:
 	var mtx_field := Mtx3Dv.new(dim)
 	
 	var center_x: float = dim.x / 2.0
@@ -13,7 +13,7 @@ static func get_gradient_sphere(dim: Vector3i, strength: int) -> Mtx3Dv:
 		for y in range(dim.y):
 			for z in range(dim.z):
 				var value := float(strength - sqrt(abs(center_x - x) ** 2 +
-				abs(center_y - y) ** 2 + abs(center_z - z) ** 2)) + randfn(.0, 1.)
+				abs(center_y - y) ** 2 + abs(center_z - z) ** 2)) + randfn(.0, noise)
 				mtx_field.setV(Vector3i(x, y, z), value)
 	
 	return mtx_field
