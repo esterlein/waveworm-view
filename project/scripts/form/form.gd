@@ -3,7 +3,7 @@ extends Node3D
 
 
 var dims := Vector3i(10, 10, 10)
-var noise: int = 1
+var noise: float = 1.0
 var strength: int = 10
 var density: int = 5
 var sparsity: int = 1
@@ -19,25 +19,35 @@ func _ready():
 
 func _process(_delta):
 	pass
-	
-	
+
+
 func generate() -> void:
 	seed(random_seed)
 	
 	caster = FieldCaster.new(dims, noise, strength, density, sparsity)
-	caster.mtx_field = Simulator.get_gradient_sphere(caster.dims, caster.strength)
+	caster.mtx_field = Simulator.get_gradient_sphere(caster.dims, caster.strength, caster.noise)
 	caster.mtx_probe = Simulator.get_probe(caster)
 	
-	# matrix test output block
-	
+	matrix_test_output(caster.mtx_field)
+	matrix_test_output(caster.mtx_probe)
+
+
+func matrix_test_output(mtx: Mtx3Dv):
 	var pad := 2
 	var mult := 0.01
 	var delim := " "
 	
-	for x in range(caster.dims.x):
+	for x in range(mtx.dims().x):
 		var plane: String
-		for y in range(caster.dims.y):
-			for z in range(caster.dims.z):
-				plane += str(snappedf(caster.mtx_field.getV(Vector3i(x, y, z)), mult)).pad_decimals(pad) + delim
+		for y in range(mtx.dims().y):
+			for z in range(mtx.dims().z):
+				var value := float(mtx.getV(Vector3i(x, y, z)))
+				if not is_nan(value):
+					plane += str(snappedf(value, mult)).pad_decimals(pad) + delim
+				else:
+					var nan_str := str(value)
+					for s in range(pad + 1):
+						nan_str += delim
+					plane += nan_str
 			plane += '\n'
 		print(plane + '\n')

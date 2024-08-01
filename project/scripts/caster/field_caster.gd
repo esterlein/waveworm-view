@@ -5,7 +5,7 @@ extends RefCounted
 var dims: Vector3i
 var size: int
 
-var noise: int
+var noise: float
 var strength: int
 
 var probe_density_perc: int
