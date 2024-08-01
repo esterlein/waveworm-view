@@ -1,3 +1,3 @@
-class_name GlobalDefs
+class_name WWDefines
 
 const vec3_size := 3
