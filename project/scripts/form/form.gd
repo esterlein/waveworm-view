@@ -2,7 +2,7 @@
 extends Node3D
 
 
-var dims := Vector3i(10, 10, 10)
+var dims := Vector3i(10, 10, 0)
 var noise: float = 1.0
 var strength: int = 10
 var density: int = 5

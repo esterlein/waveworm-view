@@ -9,12 +9,24 @@ var _storage: Array[Variant]
 
 
 func _init(dims: Vector3i, value: Variant = NAN):
+	dims = _assert_dims(dims)
+	
 	self._type = typeof(value)
 	self._dims = dims
 	
 	self._size = dims.x * dims.y * dims.z
 	self._storage.resize(self._size)
 	self._storage.fill(value)
+
+func _assert_dims(dims: Vector3i) -> Vector3i:
+	for component in range(vec3_size):
+		if dims[component] == 0:
+			printerr("mtx3dv dimension {dim} is zero".format({"dim": dims[component]}))
+			dims[component] = 1
+		elif dims[component] < 0:
+			printerr("mtx3dv dimension {dim} is negative".format({"dim": dims[component]}))
+			dims[component] = abs(dims[component])
+	return dims
 
 func _assert_index(index: int) -> bool:
 	if index >= self._size || index < 0:
