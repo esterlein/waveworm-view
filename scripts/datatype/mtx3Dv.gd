@@ -19,7 +19,7 @@ func _init(dims: Vector3i, value: Variant = NAN):
 	self._storage.fill(value)
 
 func _assert_dims(dims: Vector3i) -> Vector3i:
-	for component in range(vec3_size):
+	for component in range(WWDef.vec3_size):
 		if dims[component] == 0:
 			printerr("mtx3dv dimension {dim} is zero".format({"dim": dims[component]}))
 			dims[component] = 1

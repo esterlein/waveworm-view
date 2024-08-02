@@ -1,4 +1,4 @@
-class_name Zoner
+class_name Cube
 extends Node3D
 
 
