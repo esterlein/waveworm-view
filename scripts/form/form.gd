@@ -30,6 +30,8 @@ func generate() -> void:
 	
 	matrix_test_output(caster.mtx_field)
 	matrix_test_output(caster.mtx_probe)
+	
+	var fcube := FCube.new()
 
 
 func matrix_test_output(mtx: Mtx3Dv):

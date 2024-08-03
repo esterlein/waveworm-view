@@ -18,11 +18,11 @@ func _init(dims: Vector3i, value: Variant = NAN):
 	self._storage.resize(self._size)
 	self._storage.fill(value)
 
-func _assert_dims(dims: Vector3i) -> Vector3i:
+func _assert_dims(dims: Vector3i) -> Vector3i: # change this function
 	for component in range(WWDef.vec3_size):
-		if dims[component] == 0:
+		if abs(dims[component]) < WWDef.vec3_size:
 			printerr("mtx3dv dimension {dim} is zero".format({"dim": dims[component]}))
-			dims[component] = 1
+			dims[component] = 3
 		elif dims[component] < 0:
 			printerr("mtx3dv dimension {dim} is negative".format({"dim": dims[component]}))
 			dims[component] = abs(dims[component])
