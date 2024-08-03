@@ -45,7 +45,7 @@ static func get_probe(caster: FieldCaster) -> Mtx3Dv:
 		printerr("wrong field parameters {dens, spar}".format({"dens": perc_probe, "spar": free_range}))
 		return null
 	
-	var chunk_size: int = (free_range * 2 + 1) ** 3	
+	var chunk_size: int = (free_range * 2 + 1) ** WWDef.vec3_size
 	if caster.size / chunk_size <= perc_probe:
 		printerr("required percent of field or volume required for probing distance is too large {dens, spar}" \
 		.format({"dens": perc_probe, "spar": free_range}))
