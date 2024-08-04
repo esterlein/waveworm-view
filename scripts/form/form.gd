@@ -2,10 +2,10 @@
 extends Node3D
 
 
-var dims := Vector3i(10, 10, 0)
+var dims := Vector3i(10, 10, 5)
 var noise: float = 1.0
 var strength: int = 10
-var density: int = 5
+var density: int = 10
 var sparsity: int = 1
 
 
@@ -32,6 +32,7 @@ func generate() -> void:
 	matrix_test_output(caster.mtx_probe)
 	
 	var fcube := FCube.new()
+	add_child(fcube)
 
 
 func matrix_test_output(mtx: Mtx3Dv):
