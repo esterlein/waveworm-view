@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://b7n41vievl18n"]
+[gd_scene load_steps=3 format=3 uid="uid://b7n41vievl18n"]
 
 [ext_resource type="Script" path="res://scripts/main/space.gd" id="1_4sw4r"]
+[ext_resource type="PackedScene" uid="uid://iu06fw1ngubq" path="res://scenes/gimbal.tscn" id="2_whx0a"]
 
 [node name="Space" type="Node3D"]
 script = ExtResource("1_4sw4r")
+
+[node name="Gimbal" parent="." instance=ExtResource("2_whx0a")]

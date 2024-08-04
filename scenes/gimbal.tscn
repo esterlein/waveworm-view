@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://iu06fw1ngubq"]
 
-[ext_resource type="Script" path="res://scripts/gimbal/gimbal.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/main/gimbal.gd" id="1"]
 
 [node name="Gimbal" type="Node3D"]
 script = ExtResource("1")
