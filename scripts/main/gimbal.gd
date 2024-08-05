@@ -5,9 +5,9 @@ extends Node3D
 @onready var camera: Camera3D = $InnerGimbal/Camera
 @onready var innergimbal: Node3D = $InnerGimbal
 
-@export var max_zoom_in: float = 3.0
-@export var max_zoom_out: float = 100
-@export var zoom_speed: float = 1.0
+@export var max_zoom_in: float = 0.1
+@export var max_zoom_out: float = 10
+@export var zoom_speed: float = 0.1
 
 var zoom: float = 1.5
 
