@@ -1,9 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://b7n41vievl18n"]
+[gd_scene load_steps=6 format=3 uid="uid://b7n41vievl18n"]
 
 [ext_resource type="Script" path="res://scripts/main/space.gd" id="1_4sw4r"]
 [ext_resource type="PackedScene" uid="uid://iu06fw1ngubq" path="res://scenes/gimbal.tscn" id="2_whx0a"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3vl1t"]
+sky_horizon_color = Color(0.627623, 0.657618, 0.699265, 1)
+ground_bottom_color = Color(0.12549, 0.176471, 0.247059, 1)
+ground_horizon_color = Color(0.627623, 0.657618, 0.699265, 1)
+
+[sub_resource type="Sky" id="Sky_c0am2"]
+sky_material = SubResource("ProceduralSkyMaterial_3vl1t")
+
+[sub_resource type="Environment" id="Environment_2d0kp"]
+background_mode = 2
+sky = SubResource("Sky_c0am2")
+tonemap_mode = 2
+glow_enabled = true
+
 [node name="Space" type="Node3D"]
 script = ExtResource("1_4sw4r")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2d0kp")
 
 [node name="Gimbal" parent="." instance=ExtResource("2_whx0a")]
