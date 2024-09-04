@@ -31,7 +31,7 @@ func generate() -> void:
 	matrix_test_output(caster.mtx_field)
 	matrix_test_output(caster.mtx_probe)
 	
-	var fcube := FCube.new()
+	var fcube := FCube.new(.0)
 	add_child(fcube)
 
 
