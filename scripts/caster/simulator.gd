@@ -20,17 +20,17 @@ static func get_gradient_sphere(dims: Vector3i, strength: int, noise: float) -> 
 
 
 static func scalar_offset_normalize(mtx: Mtx3Dv) -> Mtx3Dv:
-	var size := mtx.size()
+	var dims := mtx.dims()
 	var min_val: float = 0.
 	
-	for x in range(size):
-		for y in range(size):
-			for z in range(size):
+	for x in range(dims.x):
+		for y in range(dims.y):
+			for z in range(dims.z):
 				min_val = min(min_val, mtx.getV(Vector3i(x, y, z)))
 	
-	for x in range(size):
-		for y in range(size):
-			for z in range(size):
+	for x in range(dims.x):
+		for y in range(dims.y):
+			for z in range(dims.z):
 				mtx.addV(Vector3i(x, y, z), -min_val)
 	
 	return mtx

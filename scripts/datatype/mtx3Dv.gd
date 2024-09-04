@@ -83,7 +83,7 @@ func addI(index: int, value: Variant):
 		self._storage[index] += value
 
 func addV(vec: Vector3i, value: Variant):
-	addI(value, toI(vec))
+	addI(toI(vec), value)
 
 func dims() -> Vector3i:
 	return self._dims
