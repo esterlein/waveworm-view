@@ -12,6 +12,7 @@ var probe_density_perc: int
 var probe_sparsity_elem: int
 
 var mtx_field: Mtx3Dv
+var mtx_scale: Mtx3Dv
 var mtx_probe: Mtx3Dv
 var mtx_inter: Mtx3Dv
 
@@ -40,6 +41,7 @@ func assert_parameters(dims: Vector3i, probe_sparsity: int) -> bool:
 
 
 func _assert_internal():
-	if self.dims != mtx_field.dims() || self.dims != mtx_probe.dims() || self.dims != mtx_inter.dims():
+	if self.dims != mtx_field.dims() || self.dims != mtx_scale.dims() || \
+	self.dims != mtx_probe.dims() || self.dims != mtx_inter.dims():
 		printerr("caster mtx3dv dimensions mismatch")
 		return false

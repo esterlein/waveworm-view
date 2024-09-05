@@ -47,8 +47,8 @@ static func minmax_scale_normalize(mtx: Mtx3Dv) -> Mtx3Dv:
 		max_val = max(max_val, val)
 	
 	for index in range(size):
-		var scaled_val: float = mtx.getI(index) - min_val / max_val - min_val
-		mtx.setI(index, scaled_val)
+		var val_scaled: float = mtx.getI(index) - min_val / max_val - min_val
+		mtx.setI(index, val_scaled)
 	
 	return mtx
 
@@ -58,7 +58,7 @@ static func get_minmax_scaled(mtx: Mtx3Dv) -> Mtx3Dv:
 	var min_val: float = 0.
 	var max_val: float = 0.
 	
-	var scaled_mtx := Mtx3Dv.new(mtx.dims())
+	var mtx_scaled := Mtx3Dv.new(mtx.dims())
 	
 	for index in range(size):
 		var val: float = mtx.getI(index)
@@ -66,10 +66,10 @@ static func get_minmax_scaled(mtx: Mtx3Dv) -> Mtx3Dv:
 		max_val = max(max_val, val)
 	
 	for index in range(size):
-		var scaled_val: float = mtx.getI(index) - min_val / max_val - min_val
-		scaled_mtx.setI(index, scaled_val)
+		var val_scaled: float = mtx.getI(index) - min_val / max_val - min_val
+		mtx_scaled.setI(index, val_scaled)
 	
-	return scaled_mtx
+	return mtx_scaled
 
 
 static func get_probe(caster: FieldCaster) -> Mtx3Dv:
