@@ -47,7 +47,7 @@ static func minmax_scale_normalize(mtx: Mtx3Dv) -> Mtx3Dv:
 		max_val = max(max_val, val)
 	
 	for index in range(size):
-		var val_scaled: float = mtx.getI(index) - min_val / max_val - min_val
+		var val_scaled: float = (mtx.getI(index) - min_val) / (max_val - min_val)
 		mtx.setI(index, val_scaled)
 	
 	return mtx
@@ -66,7 +66,7 @@ static func get_minmax_scaled(mtx: Mtx3Dv) -> Mtx3Dv:
 		max_val = max(max_val, val)
 	
 	for index in range(size):
-		var val_scaled: float = mtx.getI(index) - min_val / max_val - min_val
+		var val_scaled: float = (mtx.getI(index) - min_val) / (max_val - min_val)
 		mtx_scaled.setI(index, val_scaled)
 	
 	return mtx_scaled
