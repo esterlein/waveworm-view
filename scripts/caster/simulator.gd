@@ -36,6 +36,23 @@ static func scalar_offset_normalize(mtx: Mtx3Dv) -> Mtx3Dv:
 	return mtx
 
 
+static func minmax_scale_normalize(mtx: Mtx3Dv) -> Mtx3Dv:
+	var size := mtx.size()
+	var min_val: float = 0.
+	var max_val: float = 0.
+	
+	for index in range(size):
+		var val: float = mtx.getI(index)
+		min_val = min(min_val, val)
+		max_val = max(max_val, val)
+	
+	for index in range(size):
+		var scaled_val: float = mtx.getI(index) - min_val / max_val - min_val
+		mtx.setI(index, scaled_val)
+	
+	return mtx
+
+
 static func get_probe(caster: FieldCaster) -> Mtx3Dv:
 	var mtx_probe := Mtx3Dv.new(caster.dims)
 	
