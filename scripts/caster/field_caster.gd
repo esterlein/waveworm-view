@@ -17,7 +17,7 @@ var mtx_probe: Mtx3Dv
 var mtx_inter: Mtx3Dv
 
 
-func _init(dims: Vector3i, noise: int, strength: int, probe_density: float, probe_sparsity: int):
+func _init(dims: Vector3i, noise: int, strength: int, probe_density: float, probe_sparsity: int) -> void:
 	if assert_parameters(dims, probe_sparsity):
 		self.dims = dims
 		self.noise = noise
@@ -28,7 +28,18 @@ func _init(dims: Vector3i, noise: int, strength: int, probe_density: float, prob
 		self.size = dims.x * dims.y * dims.z
 	else:
 		assert(false, "unable to initialize caster")
+	
 	return
+
+
+func cast_simulation() -> void:
+	self.mtx_field = Simulator.get_gradient_sphere(self.dims, self.strength, self.noise)
+	self.mtx_field = Simulator.scalar_offset_normalize(self.mtx_field)
+	
+	self.mtx_scale = Simulator.get_minmax_scaled(self.mtx_field)
+	
+	self.mtx_probe = Simulator.get_probe(self)
+
 
 
 func assert_parameters(dims: Vector3i, probe_sparsity: int) -> bool:
@@ -45,3 +56,33 @@ func _assert_internal():
 	self.dims != mtx_probe.dims() || self.dims != mtx_inter.dims():
 		printerr("caster mtx3dv dimensions mismatch")
 		return false
+
+
+func print_mtx_test(mtx: Mtx3Dv):
+	var pad := 2
+	var mult := 0.01
+	var delim := " "
+	
+	for x in range(mtx.dims().x):
+		var plane: String
+		for y in range(mtx.dims().y):
+			for z in range(mtx.dims().z):
+				var value := float(mtx.getV(Vector3i(x, y, z)))
+				if not is_nan(value):
+					plane += str(snappedf(value, mult)).pad_decimals(pad) + delim
+				else:
+					var nan_str := str(value)
+					for s in range(pad + 1):
+						nan_str += delim
+					plane += nan_str
+			plane += '\n'
+		print(plane + '\n')
+
+
+func print_full_test() -> void:
+	print("********** FIELD MTX **********\n")
+	print_mtx_test(self.mtx_field)
+	print("********** SCALE MTX **********\n")
+	print_mtx_test(self.mtx_scale)
+	print("********** PROBE MTX **********\n")
+	print_mtx_test(self.mtx_probe)
