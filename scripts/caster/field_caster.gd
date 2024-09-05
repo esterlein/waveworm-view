@@ -29,6 +29,8 @@ func _init(dims: Vector3i, noise: int, strength: int, probe_density: float, prob
 	else:
 		assert(false, "unable to initialize caster")
 	
+	self.cast_simulation()
+	
 	return
 
 

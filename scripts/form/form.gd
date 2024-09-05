@@ -26,6 +26,10 @@ func generate() -> void:
 	
 	caster = FieldCaster.new(dims, noise, strength, density, sparsity)
 	
-	
-	var fcube := FCube.new(.0)
-	add_child(fcube)
+	for x in range(self.dims.x):
+		for y in range(self.dims.y):
+			for z in range(self.dims.z):
+				var pos := Vector3i(x, y, z)
+				var fcube := FCube.new(caster.mtx_scale.getV(pos))
+				fcube.position = pos
+				add_child(fcube)
