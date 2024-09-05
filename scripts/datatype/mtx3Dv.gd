@@ -19,8 +19,8 @@ func _init(dims: Vector3i, value: Variant = NAN):
 	self._storage.fill(value)
 
 func _assert_dims(dims: Vector3i) -> Vector3i: # change this function
-	for component in range(WWDef.vec3_size):
-		if abs(dims[component]) < WWDef.vec3_size:
+	for component in range(WWDef.VEC3_SIZE):
+		if abs(dims[component]) < WWDef.VEC3_SIZE:
 			printerr("mtx3dv dimension {dim} is zero".format({"dim": dims[component]}))
 			dims[component] = 3
 		elif dims[component] < 0:

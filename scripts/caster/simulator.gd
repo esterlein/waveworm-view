@@ -21,7 +21,7 @@ static func get_gradient_sphere(dims: Vector3i, strength: int, noise: float) -> 
 
 static func scalar_offset_normalize(mtx: Mtx3Dv) -> Mtx3Dv:
 	var dims := mtx.dims()
-	var min_val: float = 0.
+	var min_val: float = WWDef.FLOAT_MAX
 	
 	for x in range(dims.x):
 		for y in range(dims.y):
@@ -38,8 +38,8 @@ static func scalar_offset_normalize(mtx: Mtx3Dv) -> Mtx3Dv:
 
 static func minmax_scale_normalize(mtx: Mtx3Dv) -> Mtx3Dv:
 	var size := mtx.size()
-	var min_val: float = 0.
-	var max_val: float = 0.
+	var min_val: float = WWDef.FLOAT_MAX
+	var max_val: float = WWDef.FLOAT_MIN
 	
 	for index in range(size):
 		var val: float = mtx.getI(index)
@@ -55,8 +55,8 @@ static func minmax_scale_normalize(mtx: Mtx3Dv) -> Mtx3Dv:
 
 static func get_minmax_scaled(mtx: Mtx3Dv) -> Mtx3Dv:
 	var size := mtx.size()
-	var min_val: float = 0.
-	var max_val: float = 0.
+	var min_val: float = WWDef.FLOAT_MAX
+	var max_val: float = WWDef.FLOAT_MIN
 	
 	var mtx_scaled := Mtx3Dv.new(mtx.dims())
 	
@@ -81,7 +81,7 @@ static func get_probe(caster: FieldCaster) -> Mtx3Dv:
 		printerr("wrong field parameters {dens, spar}".format({"dens": perc_probe, "spar": free_range}))
 		return null
 	
-	var chunk_size: int = (free_range * 2 + 1) ** WWDef.vec3_size
+	var chunk_size: int = (free_range * 2 + 1) ** WWDef.VEC3_SIZE
 	if caster.size / chunk_size <= perc_probe:
 		printerr("required percent of field or volume required for probing distance is too large {dens, spar}" \
 		.format({"dens": perc_probe, "spar": free_range}))

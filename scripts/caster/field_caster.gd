@@ -32,7 +32,7 @@ func _init(dims: Vector3i, noise: int, strength: int, probe_density: float, prob
 
 
 func assert_parameters(dims: Vector3i, probe_sparsity: int) -> bool:
-	for component in range(WWDef.vec3_size):
+	for component in range(WWDef.VEC3_SIZE):
 		if dims[component] < probe_sparsity * 2 + 1:
 			printerr("mtx3dv dimension is lower than required by sparcity value")
 			return false

@@ -27,10 +27,15 @@ func generate() -> void:
 	caster = FieldCaster.new(dims, noise, strength, density, sparsity)
 	caster.mtx_field = Simulator.get_gradient_sphere(caster.dims, caster.strength, caster.noise)
 	caster.mtx_field = Simulator.scalar_offset_normalize(caster.mtx_field)
+	#caster.mtx_field = Simulator.minmax_scale_normalize(caster.mtx_field)
 	caster.mtx_scale = Simulator.get_minmax_scaled(caster.mtx_field)
 	caster.mtx_probe = Simulator.get_probe(caster)
 	
+	print("*** FIELD MTX TEST OUT ***\n")
 	matrix_test_output(caster.mtx_field)
+	print("*** SCALE MTX TEST OUT ***\n")
+	matrix_test_output(caster.mtx_scale)
+	print("*** PROBE MTX TEST OUT ***\n")
 	matrix_test_output(caster.mtx_probe)
 	
 	var fcube := FCube.new(.0)
