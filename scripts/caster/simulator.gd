@@ -72,30 +72,29 @@ static func get_minmax_scaled(mtx: Mtx3Dv) -> Mtx3Dv:
 	return mtx_scaled
 
 
-static func get_probe(caster: FieldCaster) -> Mtx3Dv:
-	var mtx_probe := Mtx3Dv.new(caster.dims)
+static func get_probe(perc_probe: int, free_range: int, mtx_field: Mtx3Dv) -> Mtx3Dv:
+	var mtx_probe := Mtx3Dv.new(mtx_field.dims())
 	
-	var perc_probe: int = caster.probe_density_perc
-	var free_range: int = caster.probe_sparsity_elem
 	if not (perc_probe > 0 && free_range >= 0):
 		printerr("wrong field parameters {dens, spar}".format({"dens": perc_probe, "spar": free_range}))
 		return null
 	
+	var mtx_size: int = mtx_field.size()
 	var chunk_size: int = (free_range * 2 + 1) ** WWDef.VEC3_SIZE
-	if caster.size / chunk_size <= perc_probe:
+	if mtx_size / chunk_size <= perc_probe:
 		printerr("required percent of field or volume required for probing distance is too large {dens, spar}" \
 		.format({"dens": perc_probe, "spar": free_range}))
 		return null
 	
-	var num_probes: int = caster.size * perc_probe / 100
+	var num_probes: int = mtx_size * perc_probe / 100
 	
 	var cnt_probe: int = 0
 	var coords_map: Dictionary = {}
 	
-	coords_map[mtx_probe.toV(randi_range(0, caster.size - 1))] = true # utilize bool value
+	coords_map[mtx_probe.toV(randi_range(0, mtx_size - 1))] = true # utilize bool value
 	
 	while cnt_probe < num_probes:
-		var index: int = randi_range(0, caster.size - 1)
+		var index: int = randi_range(0, mtx_size - 1)
 		var coords = mtx_probe.toV(index)
 		
 		if coords_map.has(coords):
@@ -105,7 +104,7 @@ static func get_probe(caster: FieldCaster) -> Mtx3Dv:
 			var vec_diff: Vector3i = abs(entry - coords)
 			for axis_diff in vec_diff:
 				if axis_diff > free_range * 2:
-					mtx_probe.setI(index, caster.mtx_field.getI(index))
+					mtx_probe.setI(index, mtx_field.getI(index))
 					coords_map[coords] = true # utilize bool value
 					cnt_probe += 1
 					break

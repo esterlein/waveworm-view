@@ -40,7 +40,7 @@ func cast_simulation() -> void:
 	
 	self.mtx_scale = Simulator.get_minmax_scaled(self.mtx_field)
 	
-	self.mtx_probe = Simulator.get_probe(self)
+	self.mtx_probe = Simulator.get_probe(probe_density_perc, probe_sparsity_elem, self.mtx_scale)
 
 
 

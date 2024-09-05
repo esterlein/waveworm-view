@@ -30,6 +30,12 @@ func generate() -> void:
 		for y in range(self.dims.y):
 			for z in range(self.dims.z):
 				var pos := Vector3i(x, y, z)
-				var fcube := FCube.new(caster.mtx_scale.getV(pos))
+				var val: Variant = caster.mtx_probe.getV(pos)
+				
+				if is_nan(val):
+					continue
+				
+				var fcube := FCube.new(val)
 				fcube.position = pos
+				
 				add_child(fcube)
