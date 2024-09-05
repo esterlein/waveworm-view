@@ -2,7 +2,7 @@
 extends Node3D
 
 
-@export var dims := Vector3i(10, 10, 5)
+@export var dims := Vector3i(10, 10, 10)
 @export var noise: float = 1.0
 @export var strength: int = 10
 @export var density: int = 10
@@ -25,17 +25,19 @@ func generate() -> void:
 	seed(random_seed)
 	
 	caster = FieldCaster.new(dims, noise, strength, density, sparsity)
+	var mtx: Mtx3Dv = caster.mtx_probe
 	
 	for x in range(self.dims.x):
 		for y in range(self.dims.y):
 			for z in range(self.dims.z):
 				var pos := Vector3i(x, y, z)
-				var val: Variant = caster.mtx_probe.getV(pos)
+				var val: Variant = mtx.getV(pos)
 				
 				if is_nan(val):
 					continue
 				
 				var fcube := FCube.new(val)
-				fcube.position = pos
+				var offset := Vector3(mtx.dims().x / 2.0, mtx.dims().y / 2.0, mtx.dims().z / 2.0)
+				fcube.position = Vector3(pos) - offset
 				
 				add_child(fcube)
