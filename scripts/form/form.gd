@@ -25,10 +25,10 @@ func generate() -> void:
 	seed(random_seed)
 	
 	var gradient_data: Dictionary = {
-		0.0: Color.RED,
-		0.5: Color.GREEN,
+		0.0:  Color.RED,
+		0.5:  Color.GREEN,
 		0.75: Color.VIOLET,
-		1.0: Color.BLUE
+		1.0:  Color.BLUE
 	}
 	
 	var gradient := Gradient.new()
