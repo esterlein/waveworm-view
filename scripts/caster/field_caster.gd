@@ -43,7 +43,6 @@ func cast_simulation() -> void:
 	self.mtx_probe = Simulator.get_probe(probe_density_perc, probe_sparsity_elem, self.mtx_scale)
 
 
-
 func assert_parameters(dims: Vector3i, probe_sparsity: int) -> bool:
 	for component in range(WWDef.VEC3_SIZE):
 		if dims[component] < probe_sparsity * 2 + 1:

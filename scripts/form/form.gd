@@ -24,6 +24,17 @@ func _process(_delta):
 func generate() -> void:
 	seed(random_seed)
 	
+	var gradient_data: Dictionary = {
+		0.0: Color.RED,
+		0.5: Color.GREEN,
+		0.75: Color.VIOLET,
+		1.0: Color.BLUE
+	}
+	
+	var gradient := Gradient.new()
+	gradient.offsets = gradient_data.keys()
+	gradient.colors = gradient_data.values()
+	
 	caster = FieldCaster.new(dims, noise, strength, density, sparsity)
 	var mtx: Mtx3Dv = caster.mtx_probe
 	
