@@ -47,7 +47,7 @@ func generate() -> void:
 				if is_nan(val):
 					continue
 				
-				var fcube := FCube.new(val)
+				var fcube := FCube.new(val, gradient.sample(val))
 				var offset := Vector3(mtx.dims().x / 2.0, mtx.dims().y / 2.0, mtx.dims().z / 2.0)
 				fcube.position = Vector3(pos) - offset
 				
